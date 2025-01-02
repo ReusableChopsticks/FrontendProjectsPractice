@@ -1,0 +1,723 @@
+.page1 {
+  min-height: 100%;
+  overflow-x: hidden;
+
+  --clr-primary-400: hsl(228, 39%, 23%);
+  
+  --clr-accent-500: hsl(12, 88%, 45%);
+  --clr-accent-400: hsl(12, 88%, 59%);
+  --clr-accent-300: hsl(12, 88%, 75%);
+  --clr-accent-100: hsl(13, 100%, 96%);
+
+  --clr-neutral-100: hsl(0 0% 100%);
+  --clr-neutral-200: hsl(0 0% 98%);
+  --clr-neutral-900: hsl(233, 12%, 13%);
+
+  /* font family */
+  --ff-primary: "Be Vietnam Pro", sans-serif;
+
+  --ff-body: var(--ff-primary);
+  --ff-heading: var(--ff-primary);
+
+  /* font weight */
+  --fw-regular: 400;
+  --fw-semi-bold: 500;
+  --fw-bold: 700;
+
+  /* font size */
+  --fs-300: .8125rem;
+  --fs-400: .875rem;
+  --fs-500: .9375rem;
+  /* 1rem is usually 500, but the figma design is a bit weird */
+  --fs-600: 1rem;
+  --fs-700: 1.875rem;
+  --fs-800: 2.5rem;
+  --fs-900: 3.5rem;
+
+  /* Because font sizes changes inconsistently between desktop and mobile in the design
+      there are lots of variables for the components that change.
+      Otherwise, for example, we would just change the --fs-500 variable
+  */
+  --fs-body: var(--fs-400);
+  --fs-primary-heading: var(--fs-800);
+  --fs-secondary-heading: var(--fs-700);
+  --fs-nav: var(--fs-500);
+  --fs-button: var(--fs-300);
+
+  --size-100: 0.25rem;
+  --size-200: 0.5rem;
+  --size-300: 0.75rem;
+  --size-400: 1rem;
+  --size-500: 1.5rem;
+  --size-600: 2rem;
+  --size-700: 3rem;
+  --size-800: 4rem;
+  --size-900: 5rem;
+
+
+@media (min-width: 47em) {
+  :root {
+    --fs-body: var(--fs-500);
+    --fs-primary-heading: var(--fs-900);
+    --fs-secondary-heading: var(--fs-800);
+    --fs-nav: var(--fs-500);
+    --fs-button: var(--fs-300);
+  }
+}
+
+
+
+/* General Styling */
+  font-size: var(--ff-body);
+  font-family: var(--ff-body);
+  color: var(--clr-primary-400);
+
+
+.button {
+  display: inline-flex;
+  /* sometimes you want a text align center with a min-width for visual consistency */
+  cursor: pointer;
+  text-decoration: none; /* Just in case there are links styles as buttons */
+  border-radius: 100vmax;
+  border-color: transparent;
+  padding: 1.25em 2.5em;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-button);
+  line-height: 1; /* Fixing text looking off center? */
+  color: var(--clr-neutral-100);
+  background-color: var(--clr-accent-400);
+  box-shadow: 0 1.125em 1em -1em var(--clr-accent-500);
+}
+
+.button[data-type="inverted"] {
+  background-color: var(--clr-neutral-100);
+  color: var(--clr-accent-400);
+}
+
+.button[data-shadow="none"] {
+  box-shadow: none;
+}
+
+.button:hover,
+.button:focus-visible {
+  background-color: var(--clr-accent-300);
+}
+
+.button[data-type="inverted"]:hover,
+.button[data-type="inverted"]:focus-visible {
+  background-color: var(--clr-neutral-100);
+  color: var(--clr-accent-300);
+}
+
+/* navigation */
+
+.primary-header {
+  padding-top: var(--size-700);
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-nav-toggle {
+  display: none;
+}
+
+.nav-list {
+  font-size: var(--fs-nav);
+  font-weight: var(--fw-semi-bold);
+  display: flex;
+  gap: clamp(var(--size-400), 3vw, var(--size-800));
+}
+
+.nav-list a {
+  text-decoration: none;
+  color: var(--clr-primary-400);
+}
+
+.nav-list a:hover,
+.nav-list a:focus {
+  color: var(--clr-accent-400);
+}
+
+/* this is not mobile first, but with this mobile nav, it is the path of least resistance  */
+@media (max-width: 47em) {
+  .primary-header.data-overlay {
+    position: relative;
+    z-index: 999;
+  }
+
+  .primary-navigation {
+    /* you can animate this if you want to be fancy */
+    display: none;
+
+    position: fixed;
+    padding: var(--size-700);
+    inset: 7rem var(--size-400) auto;
+    max-width: 25rem;
+    margin-left: auto;
+    background-color: var(--clr-neutral-100);
+    border-radius: var(--size-100);
+    box-shadow: 0 0 .75em rgb(0, 0, 0, .05)
+  }
+
+  /* the class data overlay is added to component when nav is toggled on */
+  .primary-header.data-overlay::before {
+    content: '';
+    position: fixed;
+    inset: 0; /* so it takes up whole page */
+    background-image: linear-gradient(rgb(0, 0, 0, 0), rgb(0, 0, 0, 0.6));
+  }
+  
+  .nav-list {
+    display: grid;
+    gap: var(--size-400);
+    text-align: center;
+    font-weight: var(--fw-bold);
+  }
+
+  .opened {
+    display: block;
+  }
+  
+  .mobile-nav-toggle {
+    display: block;
+    position: fixed;
+    top: var(--size-600);
+    right: var(--size-400);
+    cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0.5em;
+  }
+  
+  .mobile-nav-toggle .icon-close {
+    display: none;
+  }
+}
+
+/* footer */
+
+.primary-footer__wrapper {
+  display: grid;
+  grid-template-areas: 
+    'form'
+    'nav'
+    'social'
+    'logo'
+    'copyright'
+    ;
+  gap: var(--size-700);
+  justify-content: center;
+  align-items: center;
+}
+
+.primary-footer__wrapper > * {
+  margin-inline: auto;
+}
+
+.social-list {
+  grid-area: social;
+}
+
+.primary-footer__logo { 
+  grid-area: logo;
+  
+}
+
+.primary-footer__nav {
+  grid-area: nav;
+  max-width: 30rem;
+  /* outline: 3px solid red; */
+  margin-inline: auto;
+}
+
+.primary-footer-form { 
+  grid-area: form; 
+  display: flex;
+  gap: var(--size-400);
+}
+
+.primary-footer__copyright {
+  grid-area: copyright;
+  opacity: 0.7;
+  text-align: center;
+}
+
+/* footer navigation */
+
+.footer-nav {
+  columns: 2;
+  gap: clamp(4rem, 10vw, 7rem);
+}
+
+.footer-nav a {
+  color: var(--clr-neutral-100);
+  text-decoration: none;
+}
+
+.footer-nav a:is(:hover, :focus) {
+  color: var(--clr-accent-400);
+  text-decoration: none;
+}
+
+
+
+
+.primary-footer form {
+  display: flex;
+  gap: var(--size-200);
+}
+
+input:where([type="text"], [type="email"]) {
+  border-radius: 100vw;
+  border: 0;
+  padding: var(--size-300) var(--size-500);
+  width: min(100%, 14rem);
+}
+
+@media (min-width: 47em) {
+  .primary-footer__wrapper {
+    grid-template-areas: 
+      'logo nav form'
+      'social nav copyright'
+    ;
+
+    grid-template-columns: min-content 1fr auto;
+  }
+
+  .primary-footer__copyright {
+    text-align: right;
+  }
+}
+
+/* social list */
+
+.social-list {
+  display: flex;
+  gap: var(--size-600);
+}
+
+.social-icon {
+  width: var(--size-600);
+  aspect-ratio: 1;
+  color: var(--clr-neutral-100);
+}
+
+@media (min-width: 47em) {
+  .social-list {
+    gap: var(--size-300);
+  }
+
+  .social-icon {
+    width: var(--size-400);
+    max-width: revert;
+  }
+}
+
+.social-list a:is(:hover, :focus) .social-icon {
+  /* for this to work, there should be no fill on the svg element itself */
+  color: var(--clr-accent-400);
+}
+
+@media (min-width: 47em) {
+  .social-list {
+    display: flex;
+    gap: var(--size-300);
+  }
+  .social-icon {
+    width: var(--size-400);
+  }
+}
+
+/* cta */
+.cta {
+  position: relative;
+  /* creates a new stacking context but i dont understand it too well */
+  /* part 6: about 15 minutes in */
+  isolation: isolate;
+  text-align: center;
+}
+
+@media (min-width: 47em) {
+  .cta {
+    text-align: left;
+  }
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image: 
+    url("src/pages/1/images/bg-tablet-pattern.svg"),
+    url("src/pages/1/images/bg-tablet-pattern.svg");
+  background-position: -20rem -5rem, 80rem -40rem;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+}
+
+/* numbered items */
+
+.numbered-items {
+  counter-reset: count;
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.numbered-items li {
+  counter-increment: count;
+}
+
+.numbered-items div {
+  display: grid;
+  position: relative;
+  align-items: center;
+  column-gap: var(--size-300);
+  grid-template-columns: min-content 1fr;
+}
+
+.numbered-items__title {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+  line-height: 1;
+}
+
+.numbered-items__body {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 30em) {
+  .numbered-items__body {
+    grid-column: 2 / -1;
+  }
+}
+
+.numbered-items div::before,
+.numbered-items div::after {
+  height: 40px;
+}
+
+.numbered-items div::before {
+  content: "0" counter(count);
+  display: flex;
+  align-items: center;
+  color: var(--clr-neutral-100);
+  font-weight: var(--fw-bold);
+  background-color: var(--clr-accent-400);
+  padding: 0 var(--size-500);
+  border-radius: 100vw;
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+}
+
+@media (max-width: 30em) {
+  .numbered-items div::after {
+    --bg: var(--clr-accent-100);
+    content: "";
+    display: block;
+    z-index: -1;
+    border-radius: 100vw 0 0 100vw;
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    box-shadow: 5em 0 0 var(--bg);
+    background: var(--bg);
+  }
+}
+
+/* carousel */
+.react-multi-carousel-list {
+  padding-top: var(--size-900);
+  padding-bottom: var(--size-600);
+}
+
+/* to render dots outside of carousel according to the docs */
+.carousel-container {
+  position: relative;
+  padding-bottom: var(--size-600);
+}
+
+.carousel-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--clr-neutral-200);
+  padding: var(--size-800) var(--size-600) var(--size-400) var(--size-600);
+  margin: var(--size-300);
+  text-align: center;
+  height: 100%;
+}
+
+.carousel-item img {
+  position: absolute;
+  width: 5rem;
+  top: -2.5rem;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+}
+
+.carousel-item p {
+  margin-top: var(--size-400);
+  max-width: fit-content;
+}
+
+@media (max-width: 47em) {
+  .carousel button {
+    margin-top: var(--size-700);
+  }
+}
+
+.react-multi-carousel-dot button {
+  --dot-size: var(--size-300);
+  width: var(--dot-size);
+  height: var(--dot-size);
+  background-color: white;
+  border-radius: 100vw;
+  border-color: var(--clr-accent-400);
+  margin-inline: var(--size-100);
+  transition: 0.5s;
+}
+
+.react-multi-carousel-dot--active button {
+  background-color: var(--clr-accent-400);
+}
+
+/* image with blob bg */
+
+@media (max-width: 47em) {
+  .hero__image {
+    order: -1;
+  }
+}
+
+.hero__image::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  top: 0;
+  width: 87%;
+  max-height: 60vh; /* fallback if browser does not support dvh */
+  max-height: 60dvh; /* dynamic viewport height, for mobile wackiness */
+  aspect-ratio: 1 / 1.2;
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-image: url("images/bg-tablet-pattern.svg");
+}
+
+@media (min-width: 47em) {
+  .hero__image::before {
+    width: 45%;
+  }
+}
+
+/* sales points */
+.sales-points__blog {
+  position: relative;
+}
+
+.sales-points__blog::before {
+  content: url("images/bg-tablet-pattern.svg");
+  zoom: 40%;
+  position: absolute;
+  z-index: -1;
+  left: 70%;
+  bottom: 90%;
+  width: 100px;
+}
+
+@media (min-width: 47em) {
+  .sales-points__blog::before {
+    content: url("images/bg-tablet-pattern.svg");
+    zoom: 80%;
+    left: -350px;
+    top: 42%;
+    width: 100px;
+  }
+}
+
+/* Utility classes */
+/* it is often wise to put utility classes at the bottom because of cascade rules: competing styling at the bottom of the file will be applied over styling at the top */
+/* utility classes should overwrite everything else because that is the idea behind them */
+/* look into SAAS to generate utility classes for you */
+
+/* https://a11y-guidelines.orange.com/en/articles/accessible-hiding/ */
+/* for hiding elements visually, but keeping them visible to screen readers for accessibility */
+.visually-hidden {
+  position: absolute;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.text-primary-400 {
+  color: var(--clr-primary-400);
+}
+.text-accent-400 {
+  color: var(--clr-accent-400);
+}
+.text-accent-100 {
+  color: var(--clr-accent-100);
+}
+.text-neutral-100 {
+  color: var(--clr-neutral-100);
+}
+.text-neutral-900 {
+  color: var(--clr-neutral-900);
+}
+
+.bg-primary-400 {
+  background-color: var(--clr-primary-400);
+}
+.bg-accent-400 {
+  background-color: var(--clr-accent-400);
+}
+.bg-accent-100 {
+  background-color: var(--clr-accent-100);
+}
+.bg-neutral-400 {
+  background-color: var(--clr-neutral-400);
+}
+.bg-neutral-900 {
+  background-color: var(--clr-neutral-900);
+}
+
+/* linking variables to utility classes can help speed up work */
+.fw-bold { font-weight: var(--fw-bold); }
+.fw-semi-bold { font-weight: var(--fw-semi-bold); }
+.fw-regular { font-weight: var(--fw-regular); }
+
+/* CONTRACT: variables with names do change with media query */
+.fs-primary-heading {
+  font-size: var(--fs-primary-heading);
+  /* line-height: 1.2; */
+}
+.fs-secondary-heading {
+  font-size: var(--fs-secondary-heading);
+}
+
+/* CONTRACT: if it is numbered, it does not change */
+.fs-300 { font-size: var(--fs-300)}
+.fs-400 { font-size: var(--fs-400)}
+.fs-500 { font-size: var(--fs-500)}
+.fs-600 { font-size: var(--fs-600)}
+
+.padding-block-900 {
+  padding-block: var(--size-900);
+}
+.padding-block-700 {
+  padding-block: var(--size-700);
+}
+
+.margin-bottom-700 {
+  margin-block-end: var(--size-700);
+}
+
+.margin-top-900 {
+  margin-block-start: var(--size-900);
+}
+
+.mx-auto {
+  margin-inline: auto;
+}
+
+.margin-top-700 {
+  margin-block-start: var(--size-700);
+}
+
+.display-sm-none {
+  display: none;
+}
+
+/* remember, media queries always come after anything so that it overwrites what is higher in the file */
+@media (min-width: 47em) {
+  .display-md-inline-flex {
+    display: inline-flex;
+  }
+}
+
+
+.container {
+  --max-width: 1110px;
+  --padding: 1rem;
+
+  /* padding of 16 on each side when display width is smaller than max-width */
+  width: min(var(--max-width), 100% - (var(--padding) * 2));
+  margin-inline: auto;
+}
+
+.justify-self-end {
+  justify-self: end;
+}
+
+@media (min-width: 47em) {
+  .justify-self-end-md {
+    justify-self: end;
+  }
+}
+
+.vertical-align-center {
+  align-items: center;
+}
+
+
+/* selects every sibling except the first
+  used for spacing
+*/
+.flow > * + * {
+  margin-top: var(--flow-spacer, 4em);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-center p {
+  margin-inline: auto;
+}
+
+@media (max-width: 47em) {
+  .text-center-sm-only {
+    text-align: center;
+  }
+
+  .text-center-sm-only p {
+    margin-inline: auto;
+  }
+}
+
+/* if you want to define flow-spacer, you can do it like this */
+/* div {
+  --flow-spacer: 5em;
+} */
+
+.even-columns {
+  display: grid;
+  gap: 1rem;
+}
+
+/* using em in media queries */
+/* em is the only unit that stays consistent across all browsers */
+/* em (or rem?) in a media query uses the default browser setting, NOT the root like it usually does */
+@media (min-width: 47em) {
+  .even-columns {
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+  }
+}
+
+}
+
+
+/* ITS FINISHED!!!!! */
