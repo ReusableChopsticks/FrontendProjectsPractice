@@ -88,7 +88,7 @@ function CarouselItem({src, name, quote}: CarouselItem) {
 
 export default function Page1() {
   const [navOpened, setNavOpened] = useState<boolean>(false);
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
 
   return (
@@ -409,23 +409,6 @@ export default function Page1() {
           </div>
         </div>
       </footer>
-    </div>
-  );
-}
-
-function RandomWaveTest() {
-  return (
-    <div className="one">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#0099ff"
-          fill-opacity="1"
-          d="M0,96L48,106.7C96,117,192,139,288,128C384,117,480,75,576,101.3C672,128,768,224,864,245.3C960,267,1056,213,1152,192C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-        ></path>
-      </svg>
-      <div style={{ display: "block" }}>This is a test</div>
-      <div style={{ backgroundColor: "blue" }}>Second thing</div>
-      <div style={{ backgroundColor: "pink" }}>Third</div>
     </div>
   );
 }

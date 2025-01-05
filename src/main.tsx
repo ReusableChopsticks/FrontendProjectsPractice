@@ -8,11 +8,11 @@ import Page2 from "./pages/2/2.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/FrontendPractice",
     element: <App />,
   },
   { 
-    path: "/1",
+    path: "/FrontendPractice/1",
     element: <Page1 />, 
   },
   { 

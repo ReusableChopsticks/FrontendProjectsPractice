@@ -1,14 +1,14 @@
 {
+  "homepage": "https://ReusableChopsticks.github.io/FrontendPractice/",
   "name": "ui-practice",
-  "homepage": "https://ReusableChopsticks.github.io/FrontendProjectsPractice",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
     "preview": "vite preview",
+    "lint": "eslint .",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
