@@ -5,7 +5,7 @@ import "/src/reset.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-const imgFilePath = "src/pages/1/images";
+const imgFilePath = "1/images";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;

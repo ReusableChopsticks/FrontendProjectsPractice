@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./styles.css";
 import "/src/reset.css";
 
-const imgFilePath = "src/pages/2/images";
+const imgFilePath = "2/images";
 
 function Panel({
   title,

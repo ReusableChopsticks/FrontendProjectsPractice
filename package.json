@@ -1,5 +1,4 @@
 {
-  "homepage": "https://reusablechopsticks.github.io/FrontendPractice/",
   "name": "ui-practice",
   "private": true,
   "version": "0.0.0",
@@ -8,9 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "eslint .",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "lint": "eslint ."
   },
   "dependencies": {
     "react": "^18.3.1",
